@@ -1,5 +1,5 @@
-from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.db import models
 
 
 class CSVFile(models.Model):
