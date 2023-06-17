@@ -27,12 +27,6 @@ def process_csv_file(csv_file_id):
         return result
 
 
-def get_task_result(task_id):
-    task = celery_app.AsyncResult(task_id)
-    if task.ready():
-        return task.result
-
-
 def get_active_tasks_count():
     inspector = celery_app.control.inspect()
     tasks = inspector.active()

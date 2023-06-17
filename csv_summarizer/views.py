@@ -3,10 +3,11 @@ from http import HTTPStatus
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from core.celery import app as celery_app
 from csv_summarizer.models import CSVFile
-from csv_summarizer.serializers import CSVFileSerializer
-from csv_summarizer.tasks import (get_active_tasks_count, get_task_result,
-                                  process_csv_file)
+from csv_summarizer.serializers import (CSVFileResultSerializer,
+                                        CSVFileSerializer)
+from csv_summarizer.tasks import get_active_tasks_count, process_csv_file
 
 
 class CSVFileView(APIView):
@@ -33,21 +34,17 @@ class TaskResultView(APIView):
 
     @staticmethod
     def get(request, task_id):
-        result = get_task_result(task_id)
-        if result is not None:
-            return Response(
-                {'result': result},
-                status=HTTPStatus.OK,
-            )
-        return Response(
-            {'error': 'The task is not yet completed or is missing.'},
-            status=HTTPStatus.NOT_FOUND,
-        )
+        task = celery_app.AsyncResult(str(task_id))
+        if task.ready():
+            result = task.result
+            serializer = CSVFileResultSerializer({'result': result})
+            return Response(serializer.data, status=HTTPStatus.OK)
+        else:
+            return Response({'detail': 'Task is still in progress.'}, status=HTTPStatus.ACCEPTED)
 
 
 class ActiveTasksCountView(APIView):
 
     @staticmethod
     def get(request):
-        count = get_active_tasks_count()
-        return Response({'count': count}, status=HTTPStatus.OK)
+        return Response({'count': get_active_tasks_count()}, status=HTTPStatus.OK)

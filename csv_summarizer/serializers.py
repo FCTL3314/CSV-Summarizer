@@ -7,3 +7,7 @@ class CSVFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CSVFile
         fields = ('file',)
+
+
+class CSVFileResultSerializer(serializers.Serializer):
+    result = serializers.IntegerField()
