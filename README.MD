@@ -14,4 +14,10 @@
     * **Windows:** `celery -A core worker -l info -P eventlet`
     * **Linux:** `celery -A core worker -l INFO`
 7. Run server:
-    * `python manage.py runserver` 
+    * `python manage.py runserver`
+8. Go to: http://127.0.0.1:8000
+
+# 🌄 Demonstration
+
+![creating_task](images/creating_task.png)
+![task_result](images/task_result.png)

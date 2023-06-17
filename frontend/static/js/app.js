@@ -21,7 +21,7 @@ new Vue({
     methods: {
         uploadFile() {
             const vm = this;
-            const fileInput = this.$refs.fileinput;
+            const fileInput = this.$refs.csvInput;
             const formData = new FormData();
             formData.append('file', fileInput.files[0]);
 
@@ -43,7 +43,7 @@ new Vue({
         },
         getTaskResult() {
             const vm = this;
-            const taskIdInput = this.$refs.taskidinput;
+            const taskIdInput = this.$refs.taskIdInput;
 
             axios.get(`/api/v1/csv/result/${taskIdInput.value}/`)
                 .then(function (response) {
