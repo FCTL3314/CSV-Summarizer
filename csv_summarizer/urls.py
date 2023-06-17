@@ -1,7 +1,7 @@
 from django.urls import path
 
-from csv_summarizer.views import (ActiveTasksCountView, CSVFileView,
-                                  TaskResultView)
+from csv_summarizer.views.api_views import (ActiveTasksCountView, CSVFileView,
+                                            TaskResultView)
 
 app_name = 'csv_summarizer'
 
