@@ -1,7 +1,7 @@
 # 📃 About
 
 The **CSV Summarizer** is a web application that allows users to upload CSV files via a RESTful API built with Django Rest Framework (DRF) to get the sum of every second column of file. The application provides a seamless integration between the frontend, developed using Vue.js, and the backend, which handles file uploads and processing tasks using Celery.
-> The project is a test task.
+> The project was created as a test task.
 
 # 💽 Installation
 
